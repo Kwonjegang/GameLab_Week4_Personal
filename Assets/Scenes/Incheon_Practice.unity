@@ -2765,7 +2765,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2791,8 +2791,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.030057034, y: -0.96719223, z: -0.07455771, w: 0.2409916}
-  m_LocalPosition: {x: 20.01099, y: 4.031928, z: 240.05911}
+  m_LocalRotation: {x: 0.1143496, y: 0.34989578, z: -0.066767514, w: 0.92738307}
+  m_LocalPosition: {x: -77, y: 56, z: 63.90001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3614,8 +3614,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 572934430}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.030057034, y: -0.96719223, z: -0.07455771, w: 0.2409916}
-  m_LocalPosition: {x: 20.01099, y: 4.031928, z: 240.05911}
+  m_LocalRotation: {x: -0.16723536, y: -0.96763873, z: 0.13320868, w: 0.1340265}
+  m_LocalPosition: {x: 20.124409, y: 1.8843724, z: 240.69719}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5794,7 +5794,7 @@ MonoBehaviour:
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
-    Dutch: 0
+    Dutch: -0.03
     ModeOverride: 0
     PhysicalProperties:
       GateFit: 2
@@ -8130,6 +8130,7 @@ PlayableDirector:
   m_ExposedReferences:
     m_References:
     - 78664558dba6c3742bddd2be3e375bef: {fileID: 1903313059}
+    - cc4f7929721545c439bca5b60031a0b1: {fileID: 1946912694}
 --- !u!4 &1213841970
 Transform:
   m_ObjectHideFlags: 0
@@ -17208,7 +17209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1891173898
 Transform:
   m_ObjectHideFlags: 0
@@ -17424,6 +17425,8 @@ PlayableDirector:
     value: {fileID: 843399959}
   - key: {fileID: 7026388915711878711, guid: 19fab220b7f49c249b47429fdeac63eb, type: 2}
     value: {fileID: 980814430}
+  - key: {fileID: -7658216610200896647, guid: 19fab220b7f49c249b47429fdeac63eb, type: 2}
+    value: {fileID: 572934430}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1946912696
@@ -17852,8 +17855,8 @@ SceneRoots:
   - {fileID: 1572423633}
   - {fileID: 1213841970}
   - {fileID: 1891173898}
-  - {fileID: 843399962}
   - {fileID: 56820150}
   - {fileID: 1946912696}
   - {fileID: 546231508}
+  - {fileID: 843399962}
   - {fileID: 572934432}
