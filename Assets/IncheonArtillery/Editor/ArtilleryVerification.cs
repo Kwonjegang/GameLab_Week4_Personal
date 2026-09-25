@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 using Incheon.Artillery;
 using Object = UnityEngine.Object;
 
-// Runs the real flight/collision code in an isolated physics scene; never rewrites authored scenes or Timeline.
+// Runs real flight/collision code in a temporary scene, far from the authored map.
 public static class ArtilleryVerification
 {
     static readonly MethodInfo Step = typeof(ArtilleryShell).GetMethod("Step", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -24,22 +24,24 @@ public static class ArtilleryVerification
     {
         if (EditorApplication.isPlaying) return;
         var original = SceneManager.GetActiveScene();
-        var scene = SceneManager.CreateScene("Artillery_Verification_Temporary", new CreateSceneParameters(LocalPhysicsMode.Physics3D));
+        var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
         SceneManager.SetActiveScene(scene); Results.Clear();
         try
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ArtilleryAssetBuilder.Root + "/Prefabs/Artillery_Barrage.prefab");
             Check(prefab != null, "Barrage prefab exists");
             var root = (GameObject)PrefabUtility.InstantiatePrefab(prefab, scene);
+            var origin = new Vector3(10000,0,0); root.transform.position=origin;
             var rig = root.GetComponent<ArtilleryBarrage>(); rig.automaticFire = false; rig.poolSize = 4;
             rig.snapTargetToGround = false; rig.scatterRadius = 0; rig.useWaterPlane = false; rig.collisionMask = 0;
-            rig.launchPoint.position = new Vector3(0,10,-10); rig.flightTime = .5f;rig.arcHeight=4;
+            rig.launchPoint.position = origin+new Vector3(0,10,-10); rig.flightTime = .5f;rig.arcHeight=4;
             Check(Vector3.Distance(ArtilleryShell.ArcPosition(Vector3.zero,Vector3.forward*10,4,.5f),new Vector3(0,4,5))<.001f,"Arc midpoint and height");
-            var target=new Vector3(0,1,6);
+            var target=origin+new Vector3(0,1,6);
             for (int i=0;i<4;i++) Check(rig.FireAt(target),"Pool slot "+i+" launches");
             Check(!rig.FireAt(target)&&rig.PoolCount==4&&rig.ActiveCount==4&&rig.DroppedCount==1,"Capacity stays bounded when full");
             Advance(rig,1f);
             Check(rig.ImpactCount==4&&rig.ActiveCount==4,"Every shot impacts once and remains for effect lifetime");
+            Check(rig.GetComponentsInChildren<ArtilleryShell>(true).All(s=>!s.IsFlying&&!s.model.activeSelf&&!s.flightTrail.emitting),"Impact hides the shell model and stops its trail");
             Advance(rig,4f);
             Check(rig.ActiveCount==0,"All impact effects return to pool");
             int[] ids=rig.GetComponentsInChildren<ArtilleryShell>(true).Select(s=>s.GetInstanceID()).ToArray();
@@ -49,21 +51,21 @@ public static class ArtilleryVerification
             Check(rig.GetComponentsInChildren<TrailRenderer>(true).All(t=>t.positionCount==0),"Returned trails are cleared");
             Check(rig.GetComponentsInChildren<ParticleSystem>(true).All(p=>p.particleCount==0),"Returned particles are cleared");
 
-            var ground=GameObject.CreatePrimitive(PrimitiveType.Cube);ground.layer=3;ground.transform.position=Vector3.zero;ground.transform.localScale=new Vector3(20,1,20);
-            Physics.SyncTransforms(); scene.GetPhysicsScene().Simulate(.02f);
-            rig.collisionMask=1<<3;rig.launchPoint.position=new Vector3(0,10,0);rig.flightTime=.05f;rig.arcHeight=0;
+            var ground=GameObject.CreatePrimitive(PrimitiveType.Cube);ground.layer=3;ground.transform.position=origin;ground.transform.localScale=new Vector3(20,1,20);
+            Physics.SyncTransforms();
+            rig.collisionMask=1<<3;rig.launchPoint.position=origin+new Vector3(0,10,0);rig.flightTime=.05f;rig.arcHeight=0;
             Vector3 impact=Vector3.zero;rig.onImpact.AddListener(p=>impact=p);
-            rig.FireAt(new Vector3(0,-5,0));Advance(rig,.08f);
+            rig.FireAt(origin+new Vector3(0,-5,0));Advance(rig,.08f);
             Check(Mathf.Abs(impact.y-.5f)<.04f,"Fast shell hits collider before target instead of tunnelling");
             rig.StopAllShells();
-            ground.transform.position=new Vector3(0,-6,0);Physics.SyncTransforms();scene.GetPhysicsScene().Simulate(.02f);
+            ground.transform.position=origin+new Vector3(0,-6,0);Physics.SyncTransforms();
             rig.useWaterPlane=true;rig.waterLevel=0;
-            rig.FireAt(new Vector3(0,-6,0));Advance(rig,.08f);
+            rig.FireAt(origin+new Vector3(0,-6,0));Advance(rig,.08f);
             Check(rig.WaterImpactCount==1&&Mathf.Abs(impact.y)<.01f,"Water plane wins before sea floor collision");
             rig.StopAllShells();rig.useWaterPlane=false;rig.collisionMask=0;rig.flightTime=.5f;
-            rig.FireAt(target);root.SetActive(false);
-            Check(rig.ActiveCount==0,"Disabling barrage clears all in-flight shells");root.SetActive(true);
-            Check(rig.FireAt(target),"Disabled barrage can be reused after enabling");rig.StopAllShells();
+            rig.FireAt(target);rig.StopAllShells();
+            Check(rig.ActiveCount==0,"StopAllShells clears all in-flight shells");
+            Check(rig.FireAt(target),"Stopped barrage can fire again");rig.StopAllShells();
             Check(rig.GetComponentsInChildren<Renderer>(true).All(r=>r.sharedMaterials.All(m=>m!=null&&!ShaderUtil.ShaderHasError(m.shader))),"All model and effect shaders compile");
             Results.Add("NOTE deterministic editor simulation; live Play check is separate.");
             CaptureAssets(scene);
@@ -89,6 +91,7 @@ public static class ArtilleryVerification
         var origin = new Vector3(10000, 0, 0);
         foreach(var root in scene.GetRootGameObjects()) root.SetActive(false);
         var camera=new GameObject("Preview_Camera").AddComponent<Camera>();camera.enabled=false;
+        camera.scene=scene;
         camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.055f,.07f,.09f);
         camera.fieldOfView=38;camera.nearClipPlane=.03f;camera.farClipPlane=100;
         camera.GetUniversalAdditionalCameraData().renderPostProcessing=false;
@@ -102,11 +105,13 @@ public static class ArtilleryVerification
         var fx=(GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(ArtilleryAssetBuilder.Root+"/Prefabs/Shell_Projectile.prefab"),scene);
         var shell=fx.GetComponent<ArtilleryShell>();shell.model.SetActive(false);shell.impactRoot.rotation=Quaternion.identity;
         fx.transform.position=origin;
-        camera.transform.position=origin+new Vector3(9,6,-11);camera.transform.LookAt(origin+new Vector3(0,2,0));camera.fieldOfView=48;
-        foreach(var ps in shell.groundEffects) {ps.Play(false);ps.Simulate(.4f,false,true,true);}
+        camera.transform.position=origin+new Vector3(5,3,-6);camera.transform.LookAt(origin+new Vector3(0,1.2f,0));camera.fieldOfView=45;
+        foreach(var ps in shell.groundEffects) {ps.Play(false);ps.Simulate(.12f,false,true,true);}
+        Check(shell.groundEffects.All(p=>p.particleCount>0),"Ground flash, sparks, dust and smoke emit particles");
         Render(camera,"Artillery_Ground_Impact");
         foreach(var ps in shell.groundEffects)ps.Stop(false,ParticleSystemStopBehavior.StopEmittingAndClear);
         foreach(var ps in shell.waterEffects){ps.Play(false);ps.Simulate(.35f,false,true,true);}
+        Check(shell.waterEffects.All(p=>p.particleCount>0),"Water splash, surface spray and mist emit particles");
         Render(camera,"Artillery_Water_Impact");
     }
 

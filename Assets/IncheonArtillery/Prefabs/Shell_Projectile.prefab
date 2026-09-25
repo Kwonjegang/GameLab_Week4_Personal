@@ -11213,8 +11213,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 2.3, g: 0.9, b: 0.2, a: 1}
-        key1: {r: 2.3, g: 0.9, b: 0.2, a: 0.75}
+        key0: {r: 1, g: 0.43, b: 0.1, a: 1}
+        key1: {r: 1, g: 0.43, b: 0.1, a: 0.75}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -21013,8 +21013,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 3.5, g: 1.1, b: 0.18, a: 1}
-        key1: {r: 3.5, g: 1.1, b: 0.18, a: 0.75}
+        key0: {r: 1, g: 0.3, b: 0.055, a: 1}
+        key1: {r: 1, g: 0.3, b: 0.055, a: 0.75}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -24707,8 +24707,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1.4, g: 0.65, b: 0.18, a: 0.7}
-      key1: {r: 1.4, g: 0.65, b: 0.18, a: 0.525}
+      key0: {r: 1, g: 0.4, b: 0.12, a: 0.7}
+      key1: {r: 1, g: 0.4, b: 0.12, a: 0.525}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

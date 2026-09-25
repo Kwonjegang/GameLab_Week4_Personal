@@ -65,11 +65,11 @@ public static class ArtilleryAssetBuilder
             trail.sharedMaterial = trailMaterial; trail.time = .22f; trail.minVertexDistance = .15f;
             trail.startWidth = .07f; trail.endWidth = .01f; trail.numCapVertices = 2; trail.emitting = false;
             trail.shadowCastingMode = ShadowCastingMode.Off; trail.receiveShadows = false;
-            trail.colorGradient = Fade(new Color(1.4f, .65f, .18f, .7f)); shell.flightTrail = trail;
+            trail.colorGradient = Fade(new Color(1f, .4f, .12f, .7f)); shell.flightTrail = trail;
             var impact = new GameObject("Impact_Effects"); impact.transform.SetParent(projectile.transform, false); shell.impactRoot = impact.transform;
             shell.groundEffects = new[] {
-                Effect(impact.transform, "Ground_Flash", flash, 4, .24f, 3.5f, 2.3f, new Color(3.5f,1.1f,.18f,1), 75, 0),
-                Effect(impact.transform, "Ground_Sparks", flash, 16, .75f, 8f, .16f, new Color(2.3f,.9f,.2f,1), 65, 1.2f, true),
+                Effect(impact.transform, "Ground_Flash", flash, 4, .24f, 3.5f, 2.3f, new Color(1f,.3f,.055f,1), 75, 0),
+                Effect(impact.transform, "Ground_Sparks", flash, 16, .75f, 8f, .16f, new Color(1f,.43f,.1f,1), 65, 1.2f, true),
                 Effect(impact.transform, "Ground_Dust", smoke, 12, 2.1f, 3.5f, 1.8f, new Color(.43f,.32f,.21f,.7f), 76, .15f),
                 Effect(impact.transform, "Ground_Smoke", smoke, 9, 3.1f, 2.4f, 2.5f, new Color(.18f,.17f,.16f,.65f), 18, -.08f) };
             shell.waterEffects = new[] {

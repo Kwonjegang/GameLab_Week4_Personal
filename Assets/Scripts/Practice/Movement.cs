@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     public float jumpHeigt = 10f;
     public float verticalVelocity;
     public float gravity = -9f;
+    [Tooltip("끄면 입력과 중력 이동을 멈춥니다. 배의 자식으로 배치한 연출용 캐릭터는 꺼두세요.")]
     public bool isMoveable = true;
 
     private CharacterController characterController;
@@ -48,7 +49,12 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        
+        if (!isMoveable)
+        {
+            move = Vector3.zero;
+            verticalVelocity = 0f;
+            return;
+        }
         MoveInputSet();    
     }
     void MoveInputSet()
@@ -73,6 +79,9 @@ public class Movement : MonoBehaviour
     }
     void LateUpdate()
     {
+        // Timeline과 부모(배)의 이동을 CharacterController가 덮어쓰지 않도록 합니다.
+        if (!isMoveable || characterController == null || !characterController.enabled)
+            return;
         characterController.Move(move * Time.deltaTime);
     }
   
