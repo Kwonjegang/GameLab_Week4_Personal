@@ -2,7 +2,13 @@
 
 작성: 2026-09-25. Unity 6000.0.55f1 / URP 17.0.4 / Cinemachine 3.1.7 기준.
 
+후속 순서 변경: 사용자의 맵·배치 우선 요청을 반영한 `Docs/IncheonMapLayoutStepByStep.ko.md`를 현재 실습 순서로 사용한다. 저장된 Incheon_Practice에서 CinemachineBrain·CM_Opening·IncheonSceneProfile 연결은 이제 확인됐다. 아래의 과거 미연결 기록과 구분한다.
+
 이 문서는 사용자가 앞으로 따라 할 안내다. 아래 씬 생성·에셋 다운로드·임포트·코드 연결을 이번 답변에서 실행한 것은 아니다.
+
+## 최신 진행 보고
+
+사용자는 1~5번을 완료했다고 보고했고, 외부 다운로드 파일 확인은 에이전트가 후속 진행했다. 실제 생성된 실습 씬 이름은 `Incheon_Practice`다. 저장된 파일에는 아직 FollowCamera 활성·원래 Profile 연결이 남고 Cinemachine 컴포넌트가 확인되지 않으므로 에디터 저장 전 상태와 구분한다. [최신 준비 상태](IncheonDownloadedAssets.ko.md)와 [애니메이션 정리 결과](IncheonAnimationReview.ko.md)를 우선 참고한다. 아래는 최초 단계 안내를 보존한 것이다.
 
 ## 현재 상태 갱신
 

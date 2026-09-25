@@ -7,3 +7,6 @@
 - 설명은 한국어로 하고, 연출 의도와 Inspector 조작 및 화면 변화를 연결한다.
 - 학습 노트를 실제 구현 또는 숙달의 증거로 간주하지 않는다. 기록의 보완 메모와 미확인 사항을 함께 참고한다.
 - 최신 인천 상륙 작전 범위와 에셋 조사 결과는 `Docs/IncheonLandingStoryboard.ko.md` 및 `Docs/IncheonLandingAssetPlan.ko.md`를 참고한다. 기존·무료 에셋과 임시 외형을 우선한다. 기획·조사 결과를 이미 구현된 기능으로 간주하지 않는다.
+
+- 애니메이션 선택·삭제의 최신 기준은 `Docs/IncheonAnimationReview.ko.md`이며 이전 파일명 추정 후보보다 우선한다. 다운로드 에셋과 저장된 실습 씬의 최신 확인은 `Docs/IncheonDownloadedAssets.ko.md`를 참고한다. 사용자 완료 보고와 디스크 상태·실행 검증을 구분한다.
+- 사용자의 맵·배치 우선 요청에 따른 현재 실습 순서는 `Docs/IncheonMapLayoutStepByStep.ko.md`를 참고한다. 공간과 사건 배치를 먼저 잡고 임시 화면으로 검토한 다음 움직임·카메라 연출·배경 마무리로 진행한다.

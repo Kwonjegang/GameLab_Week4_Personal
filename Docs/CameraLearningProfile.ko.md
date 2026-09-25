@@ -185,3 +185,19 @@ void LateUpdate()
 - manifest, packages-lock, PackageCache를 다시 확인하니 Cinemachine 3.1.7과 Post Processing 3.5.4가 추가되어 있었다. 에이전트가 이번에 설치한 것은 아니다.
 - 현재는 Cinemachine 설치 단계가 필요하지 않다. URP 내장 Volume 후처리를 사용하며 별도 Post Processing 패키지의 Post-process Layer/Volume 연결과 혼동하지 않는다.
 - 단계별 안내는 앞으로 할 일이며 이미 실행한 작업으로 간주하지 않는다.
+
+
+### 사용자 애니메이션 평가 및 후속 삭제 (2026-09-25)
+
+- 사용자가 단계별 안내 1~5번 완료를 보고했다. 4번 외부 에셋은 Downloads에서 압축만 푼 상태였다. 저장된 파일과 보고가 다른 부분은 Docs/IncheonDownloadedAssets.ko.md에 구분하여 기록했다. 실습 씬 파일에는 Cinemachine 연결·Profile 재연결이 아직 확인되지 않으므로 저장 전 에디터 상태를 다시 확인해야 한다.
+- 사용자 평가: 쓸만하다 10개, 애매하다 11개, 필요없다 65개. 최신 선택의 원본 기준은 Docs/IncheonAnimationReview.ko.md다. 종전 계획의 파일명 추정보다 사용자 평가를 우선한다.
+- 사용자가 ‘파일도 제거’와 ‘애니메이터 설정 후보정’을 명시적으로 요청했다. 65개 FBX 및 같은 이름의 추출 클립 1개·압축본 2개와 대응 .meta를 제거하고 Controller 두 개를 보정했다. 원본은 UserSettings/AnimationCleanupBackups에 압축 보관했다.
+- 평가하지 않은 변형 6개는 유지했다. Sotay_Dash는 상체만, DoubleJumpRolling은 앞부분만 활용할 후보라는 사용자 설명을 보존했다. 실제 편집은 미실행이다.
+- 현재 기본 Idle은 Crouch_Idle, WalkRun은 Run2 단독 재생이다. 이는 삭제 후 빈 Motion 방지를 위한 임시 구성이고 완성된 자동 사건 진행이 아니다. 연결 검사는 통과했으나 Unity 재생 화면은 확인하지 않았다.
+- 내려받은 UAL1 Unity용 FBX에 수영/걷기/대기 동작이 포함된 것을 확인했다. 프로젝트에 임포트하거나 기존 캐릭터에 적용한 것은 아니다.
+
+### 맵·배치 우선 실습 안내 (2026-09-25)
+
+- 사용자는 카메라 세팅 전에 맵과 배경 배치를 먼저 정하고 싶어 하며 본인이 할 일을 단계별로 요청했다.
+- 최신 안내는 Docs/IncheonMapLayoutStepByStep.ko.md다. 큰 지형 → 사건 위치 → 배·배우 → 임시 화면 검사 → 공간 보정 → 반복 재생 기반 → 카메라 연출 → 배경·효과 마무리 순서를 제안했다. 사용자가 실제로 배치를 완료한 기록은 아니다.
+- 같은 시점의 저장된 Incheon_Practice에는 활성 CinemachineBrain, CM_Opening, IncheonSceneProfile 연결이 확인됐다. 이전의 미연결 상태는 해소됐다. Movement는 활성이다. Unity Game 뷰 재생은 미확인이다.

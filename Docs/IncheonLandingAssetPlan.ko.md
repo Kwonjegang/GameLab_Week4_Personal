@@ -2,6 +2,8 @@
 
 조사일: 2026-09-25 / 대상: 스토리보드 1~7번
 
+최신 후속 결과: [애니메이션 평가·삭제·Animator 보정](IncheonAnimationReview.ko.md), [다운로드 에셋·실습 씬 확인](IncheonDownloadedAssets.ko.md). 사용자가 제외한 동작 65개는 프로젝트에서 삭제되었고 애니메이션 FBX는 현재 27개다. 아래 초기 조사의 92개 및 미다운로드/미임포트 표기는 당시 상태이며 최신 확보 상태는 후속 문서가 우선한다.
+
 사용자 선택: **기존·무료 우선, 외형은 임시여도 괜찮음.**
 
 후속 확인: 단계별 안내 작성 시 Cinemachine 3.1.7과 Post Processing 3.5.4가 manifest/lock/PackageCache에 추가된 것을 확인했다. 아래의 초기 조사 상태와 구분한다. 현재 단계별 진행은 Docs/IncheonLandingStepByStep.ko.md를 따른다. 후처리는 URP 내장 Volume 기준이다.
@@ -52,22 +54,9 @@
 
 총·적 병사·탱크·대규모 군중·완전한 1인칭 팔 세트는 현재 화면 요구를 확정한 뒤 추가 여부를 판단한다. 화면 밖 발사, 점등, 반응 애니메이션으로 피격을 먼저 표현할 수 있다. 사용자의 7개 장면을 삭제하거나 축소한다는 뜻은 아니다.
 
-## 3. 기존 동작 확인 목록
+## 3. 기존 동작 확인 목록 — 사용자 평가로 대체
 
-모든 파일은 Assets/CameraDrill/Character/Animations/ 안에 있다. 파일 이름으로 용도를 추정한 후보이며 실제 재생 적합성은 미검증이다.
-
-| 행동 | 보유 파일명 | 확인할 것 |
-| --- | --- | --- |
-| 접근/보행 | UnitychanRFN_STD_FN_Walk.fbx, UnitychanRFN_STD_FN_Walk2.fbx | 발 미끄러짐, 이동 속도 |
-| 질주 | UnitychanRFN_STD_FN_Run.fbx, UnitychanRFN_STD_FN_Run2.fbx | 경로와 발 동작 속도 |
-| 정지 | UnitychanRFN_STD_FN_Idle.fbx | 기본 자세와 전환 |
-| 움츠림 | UnitychanRFN_STD_FN_Crouch_Idle.fbx, UnitychanRFN_STD_FN_Crouch_Walk.fbx | 주인공의 반응으로 읽히는 낮아짐 |
-| 몸 낮추기 | UnitychanRFN_STD_FN_Sitdown_Sankaku.fbx, UnitychanRFN_STD_FN_Seiza_All.fbx, UnitychanRFN_STD_FN_Search_Ground.fbx | 깨우려는 자세로 맞는지. 맞지 않으면 재사용 확정하지 않음 |
-| 손 뻗기 | UnitychanRFN_STD_FN_Use_Forward.fbx | 높이·도달 위치, 자세 혼합 |
-| 끄덕임 | UnitychanRFN_STD_FN_Talking_Yes.fbx | 고개 크기와 길이 |
-| 입수 시작 | UnitychanRFN_STD_FN_Jump_All.fbx, UnitychanRFN_STD_FN_Jump_InAir.fbx | 배와 충돌하지 않는 궤적 |
-| 피격 | UnitychanRFN_STD_FN_DamageS.fbx, UnitychanRFN_STD_FN_DamageM.fbx | 총에 맞는 반응으로 읽히는지 |
-| 넘어짐 | UnitychanRFN_STD_FN_Down-Ten-Long.fbx, UnitychanRFN_STD_FN_Down-Chi-Long.fbx, UnitychanRFN_STD_FN_Down-Chi-Impact.fbx | 넘어지는 방향과 최종 자세 유지 |
+파일명만으로 선정했던 이전 후보는 `Docs/IncheonAnimationReview.ko.md`의 직접 평가와 장면별 후보 표로 대체한다. 특히 기존 Idle/Walk/Walk2/Run/Seiza/Search_Ground/Use_Forward/Jump_All/Jump_InAir/DamageS 등은 사용자가 제외하고 삭제를 요청했으므로 다시 필수 후보로 제안하지 않는다. Run2, Crouch_Idle, DoubleJump, Down-Chi-Long, Down-Ten-Long 등을 유지한다. Talking_Yes와 DamageM은 확정품이 아니라 ‘애매하다’에 속한다.
 
 ## 4. 외부 후보와 우선순위
 
