@@ -235,7 +235,7 @@ public static class IncheonBackgroundBuilder
         var surface = new GameObject("Coastal_Water_Surface");
         surface.transform.SetParent(parent, false);
         surface.transform.position = new Vector3(0, 0, 480);
-        surface.transform.localScale = new Vector3(240, 1, 180);
+        surface.transform.localScale = new Vector3(800, 1, 800);
         var temp = GameObject.CreatePrimitive(PrimitiveType.Plane);
         var plane = temp.GetComponent<MeshFilter>().sharedMesh;
         Object.DestroyImmediate(temp);
@@ -312,7 +312,7 @@ public static class IncheonBackgroundBuilder
         view.Repaint();
     }
 
-    [MenuItem("Tools/Incheon Background/3 Capture Background Previews %&p")]
+    [MenuItem("Tools/Incheon Background/3 Capture Background Previews")]
     public static void CapturePreviews()
     {
         // Defer rendering until outside the menu's OnGUI event.
@@ -324,6 +324,7 @@ public static class IncheonBackgroundBuilder
                 Capture("Coast_Overview", new Vector3(155, 96, 132), new Vector3(-14, 23, -90), 58);
                 Capture("Beach_Toward_Mountains", new Vector3(-6.4f, 11, 14), new Vector3(-12, 48, -250), 64);
                 Capture("Shore_Toward_Sea", new Vector3(17, 11, -24), new Vector3(-6, 0, 76), 64);
+                Capture("Water_Close", new Vector3(-6.4f, 2.5f, 40.4f), new Vector3(-6, 0, 58), 64);
                 Validate();
                 Debug.Log("Background previews saved to Docs/Previews.");
             }
@@ -370,7 +371,10 @@ public static class IncheonBackgroundBuilder
         var errors = materials.Where(m => m.shader == null || ShaderUtil.ShaderHasError(m.shader)).Select(m => m.name).ToArray();
         var markerInfo = MarkerNames.Select(name =>
         {
-            var tr = GameObject.Find(name).transform;
+            var marker = SceneManager.GetActiveScene().GetRootGameObjects()
+                .SelectMany(g => g.GetComponentsInChildren<Transform>(true)).FirstOrDefault(t => t.name == name);
+            if (marker == null) return name + " MISSING";
+            var tr = marker;
             float ground = terrain.SampleHeight(tr.position) + terrain.transform.position.y;
             return name + " position=" + tr.position.ToString("F3") + " ground=" + ground.ToString("F3") + " waterDepth=" + (-ground).ToString("F3");
         }).ToArray();
@@ -433,7 +437,7 @@ public static class IncheonBackgroundBuilder
         File.WriteAllText("Temp/incheon-rendering-inspection.txt", report.ToString());
     }
 
-    [MenuItem("Tools/Incheon Background/6 Refine Generated Background %&#b")]
+    // Internal one-time construction correction. Kept off the menu to protect later manual terrain edits.
     static void RefineGeneratedBackground()
     {
         if (EditorApplication.isPlaying || SceneManager.GetActiveScene().path != "Assets/Scenes/Incheon_Practice.unity") return;
@@ -466,6 +470,74 @@ public static class IncheonBackgroundBuilder
         EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         InspectRendering();
         FrameCoast();
+        CapturePreviews();
+    }
+
+    [MenuItem("Tools/Incheon Background/6 Audit Current Connections %&#i")]
+    static void AuditCurrentConnections()
+    {
+        var scene = SceneManager.GetActiveScene();
+        var objects = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<Transform>(true)).Select(t => t.gameObject).ToArray();
+        var report = new System.Text.StringBuilder();
+        report.AppendLine("Scene: " + scene.path + "; dirty=" + scene.isDirty + "; playing=" + EditorApplication.isPlaying);
+        foreach (var go in objects)
+        {
+            int missing = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(go);
+            if (missing > 0) report.AppendLine("MISSING SCRIPT: " + go.name + " x" + missing);
+            foreach (var component in go.GetComponents<Component>().Where(c => c != null))
+            {
+                using (var serialized = new SerializedObject(component))
+                {
+                    var property = serialized.GetIterator();
+                    while (property.NextVisible(true))
+                        if (property.propertyType == SerializedPropertyType.ObjectReference &&
+                            property.objectReferenceValue == null && property.objectReferenceInstanceIDValue != 0)
+                            report.AppendLine("MISSING REFERENCE: " + go.name + "/" + component.GetType().Name + "/" + property.propertyPath);
+                }
+            }
+        }
+        foreach (var director in objects.SelectMany(g => g.GetComponents<UnityEngine.Playables.PlayableDirector>()))
+        {
+            report.AppendLine("Director: " + director.name + "; asset=" + director.playableAsset?.name + "; duration=" + director.duration + "; playOnAwake=" + director.playOnAwake);
+            if (director.playableAsset == null) continue;
+            foreach (var output in director.playableAsset.outputs)
+            {
+                var binding = director.GetGenericBinding(output.sourceObject);
+                report.AppendLine("  " + output.streamName + " -> " + (binding != null ? binding.name + " (" + binding.GetType().Name + ")" : "UNBOUND"));
+            }
+        }
+        foreach (var camera in objects.SelectMany(g => g.GetComponents<Camera>()))
+        {
+            var urp = camera.GetComponent<UniversalAdditionalCameraData>();
+            report.AppendLine("Camera: " + camera.name + "; pos=" + camera.transform.position + "; far=" + camera.farClipPlane + "; postFX=" + (urp != null && urp.renderPostProcessing));
+            report.AppendLine("  Components: " + string.Join(", ", camera.GetComponents<Component>().Where(c => c != null).Select(c => c.GetType().Name)));
+        }
+        foreach (var volume in objects.SelectMany(g => g.GetComponents<Volume>()))
+            report.AppendLine("Volume: " + volume.name + "; profile=" + volume.sharedProfile?.name + "; weight=" + volume.weight + "; priority=" + volume.priority);
+        foreach (var animator in objects.SelectMany(g => g.GetComponents<Animator>()))
+            report.AppendLine("Animator: " + animator.name + "; controller=" + animator.runtimeAnimatorController?.name);
+        report.AppendLine("Sky: " + RenderSettings.skybox?.name);
+        Directory.CreateDirectory("Temp");
+        File.WriteAllText("Temp/incheon-current-connections.txt", report.ToString());
+        Validate();
+        InspectRendering();
+        Debug.Log("Current scene connections audited without changing the scene or Timeline.");
+    }
+
+    [MenuItem("Tools/Incheon Background/7 Extend Water Horizon %&#w")]
+    static void ExtendWaterHorizon()
+    {
+        var scene = SceneManager.GetActiveScene();
+        if (EditorApplication.isPlaying || scene.path != "Assets/Scenes/Incheon_Practice.unity") return;
+        var root = GameObject.Find(RootName);
+        var surface = root != null ? root.transform.Find("Coastal_Water_Surface") : null;
+        if (surface == null) throw new InvalidOperationException("Existing water surface not found.");
+        Undo.RecordObject(surface, "Extend existing water horizon");
+        var scale = surface.localScale;
+        surface.localScale = new Vector3(Mathf.Max(scale.x, 800), scale.y, Mathf.Max(scale.z, 800));
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AuditCurrentConnections();
         CapturePreviews();
     }
 }

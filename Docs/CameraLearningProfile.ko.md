@@ -201,3 +201,10 @@ void LateUpdate()
 - 사용자는 카메라 세팅 전에 맵과 배경 배치를 먼저 정하고 싶어 하며 본인이 할 일을 단계별로 요청했다.
 - 최신 안내는 Docs/IncheonMapLayoutStepByStep.ko.md다. 큰 지형 → 사건 위치 → 배·배우 → 임시 화면 검사 → 공간 보정 → 반복 재생 기반 → 카메라 연출 → 배경·효과 마무리 순서를 제안했다. 사용자가 실제로 배치를 완료한 기록은 아니다.
 - 같은 시점의 저장된 Incheon_Practice에는 활성 CinemachineBrain, CM_Opening, IncheonSceneProfile 연결이 확인됐다. 이전의 미연결 상태는 해소됐다. Movement는 활성이다. Unity Game 뷰 재생은 미확인이다.
+
+### 사용자 오프닝 제작 이후 재확인 (2026-09-25 저녁)
+
+- 사용자가 배경 배치 후 직접 약 15초 Opening 타임라인, CM_Opening 애니메이션, Blink_Volume, 피·암전 UI, 40 MINUTES AGO 텍스트·폰트와 TMPOutlineAnimator를 추가했다. 흐린 하늘 MAT_Sky_War_Overcast와 조명·안개·Volume 설정도 사용자 연출이다.
+- 사용자는 직접 수정한 카메라·타임라인·새 파일을 건드리지 말고, 새 스카이박스 등 연출도 보존하라고 명시했다. 이 제약은 후속 작업에도 적용한다. 최초 배경 생성 설정으로 되돌리거나 지형을 재생성하지 않는다.
+- Unity 편집기에서 6개 타임라인 트랙의 바인딩과 Main Camera의 Brain/후처리, 두 Volume 연결을 검사했다. 누락 스크립트·직렬화 참조가 보고되지 않았다. Play 모드에서 어두워짐과 검은 배경의 40 MINUTES AGO 표시를 확인했고 콘솔 오류·경고는 없었다.
+- 배경은 기존 다운로드 모래·해안 텍스처와 프로젝트 Shader Graph의 물·바위·지형 재질로 생성되어 있다. 상세 상태와 점검 메뉴는 Docs/IncheonBackgroundBuild.ko.md에 기록한다. 수중 효과나 배·동료의 자동 연기는 아직 구현된 것으로 간주하지 않는다.
