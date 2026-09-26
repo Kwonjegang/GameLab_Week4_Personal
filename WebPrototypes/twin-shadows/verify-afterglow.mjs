@@ -1,0 +1,45 @@
+import assert from 'node:assert/strict';
+import { initial, advance, forecast, solve, ACTIONS } from './dist/afterglow/engine.mjs';
+const step = (s, a) => advance(s, a).state;
+const start = initial();
+assert.equal(step(start, 'A').pos, 1);
+assert.equal(start.pos, 0, 'preview must not mutate state');
+assert.equal(step(start, 'C').pos, 0, 'no bridge, no movement');
+let s = step(start, 'A');
+s = step(s, 'B');
+assert.equal(s.energy.A, 1);
+s = step(s, 'wait');
+assert.equal(s.status, 'lost', 'remaining on A after two dark turns causes a fall');
+s = step(step(start, 'A'), 'A');
+s = step(s, 'B');
+assert.equal(s.energy.A, 1);
+s = step(s, 'wait');
+assert.equal(s.pos, 4, 'may leave fading bridge on its second dark turn');
+assert.equal(s.status, 'playing');
+s = step(s, 'shade');
+assert.equal(s.energy.B, 2);
+s = step(s, 'C');
+s = step(s, 'wait');
+assert.equal(s.energy.B, 2, 'shadow holds B energy');
+assert.equal(s.energy.C, 0, 'two charging turns cannot create C');
+s = step(s, 'wait');
+assert.equal(s.energy.C, 2);
+assert.equal(s.pos, 8);
+assert.equal(step(step(initial(), 'shade'), 'B').energy.B, 0, 'shadow cannot create an empty bridge');
+const charge = step(step(initial(), 'C'), 'wait');
+assert.equal(step(charge, 'A').charge, 0, 'turning away resets incomplete charge');
+assert.equal(solve(initial(), ACTIONS.filter(a => a !== 'shade')), null, 'main puzzle must require the shadow mechanic');
+const solution = solve(initial());
+assert.ok(solution && solution.includes('shade'));
+s = initial();
+const snapshots = [];
+for (const action of solution) { snapshots.push(s); s = step(s, action); }
+assert.equal(s.status, 'won');
+assert.deepEqual(step(s, 'wait'), s, 'terminal state is stable');
+for (let i = 0; i < snapshots.length; i++) {
+  const before = JSON.stringify(snapshots[i]);
+  const preview = forecast(snapshots[i], solution[i]);
+  assert.deepEqual(preview[0].state, step(snapshots[i], solution[i]));
+  assert.equal(JSON.stringify(snapshots[i]), before);
+}
+console.log(JSON.stringify({ result: 'PASS', minimumTurns: solution.length, solution, checks: ['two-turn fading and safe exit', 'fall detection', 'three-turn charge and reset', 'shadow necessary and non-creative', 'pure forecast / undo snapshots', 'victory'] }));

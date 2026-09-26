@@ -1863,6 +1863,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 064308172725053488fb24e97637d9ec, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5970828188862721488, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.14689182
@@ -2234,7 +2242,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144554367}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c913f1de81181ae45ae4a51d01baeccd, type: 3}
   m_Name: 
@@ -2266,7 +2274,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 1.3
   m_Radius: 0.25
@@ -3207,8 +3215,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.1744456, y: -0.55380493, z: 0.14119138, w: -0.80183154}
-  m_LocalPosition: {x: -76, y: 56, z: 63.9}
+  m_LocalRotation: {x: 0, y: -0.9167131, z: -0.39954606, w: 0}
+  m_LocalPosition: {x: 0, y: 8.06, z: -41.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4030,8 +4038,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 572934430}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.16812785, y: -0.96743876, z: 0.13367325, w: 0.13389055}
-  m_LocalPosition: {x: 20.131737, y: 1.9049349, z: 240.70549}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.01601577, y: 0.89199984, z: 121.890015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5385,6 +5393,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 064308172725053488fb24e97637d9ec, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5970828188862721488, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.14689182
@@ -5741,7 +5757,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 693186378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c913f1de81181ae45ae4a51d01baeccd, type: 3}
   m_Name: 
@@ -5773,7 +5789,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 1.3
   m_Radius: 0.25
@@ -8041,6 +8057,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 064308172725053488fb24e97637d9ec, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5970828188862721488, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.14689182
@@ -8397,7 +8421,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957806585}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c913f1de81181ae45ae4a51d01baeccd, type: 3}
   m_Name: 
@@ -8429,7 +8453,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 1.3
   m_Radius: 0.25
@@ -10652,6 +10676,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 064308172725053488fb24e97637d9ec, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5970828188862721488, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.14689182
@@ -11008,7 +11040,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1234982281}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c913f1de81181ae45ae4a51d01baeccd, type: 3}
   m_Name: 
@@ -11040,7 +11072,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 1.3
   m_Radius: 0.25
@@ -11049,6 +11081,11 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.73, z: 0}
+--- !u!95 &1234982284 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+  m_PrefabInstance: {fileID: 1234982279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1253261058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14527,8 +14564,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 064308172725053488fb24e97637d9ec, type: 2}
     - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
       propertyPath: m_WarningMessage
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5970828188862721488, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14886,7 +14931,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1666948397}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c913f1de81181ae45ae4a51d01baeccd, type: 3}
   m_Name: 
@@ -14918,7 +14963,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 1.3
   m_Radius: 0.25
@@ -16571,6 +16616,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 064308172725053488fb24e97637d9ec, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5970828188862721488, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.14689182
@@ -16927,7 +16980,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771510932}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c913f1de81181ae45ae4a51d01baeccd, type: 3}
   m_Name: 
@@ -16959,7 +17012,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 1.3
   m_Radius: 0.25
@@ -16968,6 +17021,11 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.73, z: 0}
+--- !u!95 &1771510935 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+  m_PrefabInstance: {fileID: 1771510930}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1775371076 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 97653665488387579, guid: 4c541e283c864654cbc7b38fa445ceda, type: 3}
@@ -18451,6 +18509,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 064308172725053488fb24e97637d9ec, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5970828188862721488, guid: 01fb09c81943028488da3f9634a7f7b2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.14689182
@@ -18807,7 +18873,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806831538}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c913f1de81181ae45ae4a51d01baeccd, type: 3}
   m_Name: 
@@ -18839,7 +18905,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 1.3
   m_Radius: 0.25
@@ -19600,6 +19666,10 @@ PlayableDirector:
     value: {fileID: 980814430}
   - key: {fileID: -7658216610200896647, guid: 19fab220b7f49c249b47429fdeac63eb, type: 2}
     value: {fileID: 572934430}
+  - key: {fileID: 5877274942196180446, guid: 19fab220b7f49c249b47429fdeac63eb, type: 2}
+    value: {fileID: 1234982284}
+  - key: {fileID: 5370353356235500272, guid: 19fab220b7f49c249b47429fdeac63eb, type: 2}
+    value: {fileID: 1771510935}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1946912696

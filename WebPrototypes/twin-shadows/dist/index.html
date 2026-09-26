@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101619">
+<title>엇갈린 두 그림자 · 빛 퍼즐 03</title>
+<meta name="description" content="하나의 차폐물을 회전해 두 사람의 이동과 대기를 조절하세요. 빛과 그림자로 길을 읽는 턴제 퍼즐.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101619'/%3E%3Ccircle cx='10' cy='11' r='5' fill='%2384ded4'/%3E%3Cpath d='M18 18h10v10H18z' fill='%23f4ab6a'/%3E%3Cpath d='M5 28L27 5' stroke='%23f7e7ac' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="game">
+ <header class="masthead"><div><p class="eyebrow">빛 퍼즐 <span>03 / PRIMITIVE STUDY</span></p><h1>엇갈린 두 그림자</h1><p class="intro">그림자로 멈추게 하고, 빛으로 나아가게 하세요.</p></div><div class="score"><span id="turn">00</span><span>진행한 턴</span><strong id="rescued">0 / 2 구조</strong></div></header>
+ <div class="play-layout">
+  <section class="board-panel" aria-label="퍼즐 보드">
+   <div class="board-top"><span class="goal">목표 <b>두 사람 모두 안전지대까지</b></span><span class="preview-label">점선 = 다음 위치</span></div>
+   <svg id="board" viewBox="0 110 920 560" role="img" aria-labelledby="board-title board-desc">
+    <title id="board-title">빛과 그림자로 조절하는 두 갈래 길</title><desc id="board-desc">A와 B는 빛이 닿은 다음 칸으로 자동 이동합니다.</desc>
+    <defs><radialGradient id="light-fill" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#f7e7ac" stop-opacity=".23"/><stop offset="1" stop-color="#f7e7ac" stop-opacity=".035"/></radialGradient><pattern id="shadow-lines" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="10" height="10" fill="#10181d"/><path d="M0 0V10" stroke="#26323a" stroke-width="2"/></pattern></defs>
+    <g id="scene"></g><g id="ghosts"></g>
+    <g id="actor-a" class="actor"><circle r="18" fill="#84ded4" stroke="#101619" stroke-width="3"/><text text-anchor="middle" dy="6" class="actor-letter">A</text></g>
+    <g id="actor-b" class="actor"><rect x="-17" y="-17" width="34" height="34" rx="5" fill="#f4ab6a" stroke="#101619" stroke-width="3"/><text text-anchor="middle" dy="6" class="actor-letter">B</text></g>
+   </svg>
+   <div class="board-bottom"><span><i class="legend-lit"></i>밝은 길 · 전진</span><span><i class="legend-shadow"></i>그림자 · 대기</span><span><i class="legend-plate"></i>발판 · 반대편 문 열기</span></div>
+  </section>
+  <aside class="controls">
+   <div><p class="step-label">01 <span>차폐물 방향 선택</span></p><div id="modes" class="modes" role="group" aria-label="차폐물 방향">
+    <button type="button" data-mode="left" aria-pressed="false"><span class="direction">╱</span><span>A 길 가리기<small>A 대기 · B 이동</small></span></button>
+    <button type="button" data-mode="center" aria-pressed="true"><span class="direction">━</span><span>두 길 밝히기<small>A와 B 함께 이동</small></span></button>
+    <button type="button" data-mode="right" aria-pressed="false"><span class="direction">╲</span><span>B 길 가리기<small>A 이동 · B 대기</small></span></button>
+   </div></div>
+   <section class="forecast" aria-label="다음 턴 미리보기"><p class="step-label">02 <span>다음 턴 확인</span></p><div id="forecast" aria-live="polite"></div></section>
+   <button id="advance" class="advance" type="button">한 턴 진행 <span>SPACE</span></button>
+   <div class="secondary"><button id="undo" type="button" disabled>↶ 되돌리기</button><button id="reset" type="button">처음부터</button></div>
+   <div id="result" class="result" role="status" hidden></div>
+   <div class="hint-area"><button id="hint-button" type="button">막혔나요? 한 수 힌트</button><p id="hint" hidden></p></div>
+  </aside>
+ </div>
+ <footer><details><summary>규칙과 조작법</summary><div class="rules"><p><b>캐릭터는 직접 움직이지 않습니다.</b> 방향을 선택하고 한 턴을 진행하면, 두 사람은 밝은 다음 칸으로 한 칸씩 움직입니다. 그림자나 닫힌 문 앞에서는 기다립니다.</p><p><b>A 발판 → B 문 · B 발판 → A 문.</b> 발판 위에 있는 동안만 반대편 문이 열립니다. 문 통과 여부는 턴 시작 시점의 발판 상태로 판정합니다. 같은 턴에 발판에서 내려오면서 다른 사람이 문을 통과할 수도 있습니다.</p><p>현재 칸이 어두워져도 안전하게 기다립니다. 다음 칸의 빛을 확인하세요. 이미 문을 통과한 사람은 문이 닫혀도 되돌아가지 않습니다.</p><p>← → 방향 선택 · Space 한 턴 · Z 되돌리기. 방향을 바꾸기만 해서는 턴이 진행되지 않습니다. 막힌 상태도 되돌릴 수 있습니다.</p></div></details><span>조명 1 · 차폐물 1 · 캐릭터 2</span></footer>
+</main>
+<script type="module" src="app.mjs"></script>
+</body></html>

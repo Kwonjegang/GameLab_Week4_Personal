@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="theme-color" content="#111b23"><title>잔광의 다리 · 빛 퍼즐 02</title>
+ <meta name="description" content="사라지기 전에 다음 길을 준비하세요. 빛과 그림자로 캐릭터를 인도하는 턴제 퍼즐 실험.">
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111b23'/%3E%3Cpath d='M4 23h6m3-6h6m3-6h6' stroke='%23f3d49b' stroke-width='5'/%3E%3C/svg%3E">
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <main>
+  <nav aria-label="프로토타입"><span class="brand"><i></i> 빛 퍼즐 실험실 <span class="nav-divider">/</span> <b>02</b></span><a href="../">03 · 엇갈린 두 그림자 ↗</a></nav>
+  <header><div><p class="eyebrow">AFTERGLOW BRIDGE <span>PRIMITIVE PROTOTYPE</span></p><h1>잔광의 다리</h1><p class="intro">빛이 떠난 뒤, 길은 두 턴을 기억합니다.<br>사라지기 전에 다음 길을 준비하세요.</p></div><div class="hero-note"><span>당신이 움직이는 것은</span><strong>사람이 아닌, 빛과 그림자.</strong><span>턴제 · 다음 수 미리보기 · 무제한 되돌리기</span></div></header>
+  <div class="layout">
+   <section class="stage" aria-label="잔광의 다리 퍼즐">
+    <div class="stage-top"><div class="live-badge"><span></span> <b id="state-label">출발 준비</b></div><div class="turn-counter"><strong id="turn">00</strong> <span>TURN</span></div></div>
+    <div class="board-scroll" tabindex="0" aria-label="퍼즐 지도. 좁은 화면에서는 좌우로 스크롤할 수 있습니다.">
+     <svg id="board" viewBox="0 65 1000 450" role="img" aria-labelledby="board-title board-desc">
+      <title id="board-title">하나의 조명이 비추는 세 개의 다리</title><desc id="board-desc">출발점, A 다리, 안전한 섬, B 다리, C 다리, 도착점 순서입니다.</desc>
+      <defs>
+       <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#2a3944"/></pattern>
+       <pattern id="dark" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="8" height="8" fill="#101a22"/><path d="M0 0V8" stroke="#32404b" stroke-width="2"/></pattern>
+       <linearGradient id="beam" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#f3d49b" stop-opacity=".23"/><stop offset="1" stop-color="#f3d49b" stop-opacity=".025"/></linearGradient>
+      </defs>
+      <rect width="1000" height="520" fill="url(#grid)"/>
+      <g id="rays"></g><g id="tiles"></g><g id="mechanism"></g><g id="preview"></g>
+      <g id="actor" class="actor"><circle r="20" fill="#95e1d4" stroke="#111b23" stroke-width="4"/><circle cy="-3" r="5" fill="#173a38"/><path d="M-8 9Q0-2 8 9" fill="#173a38"/></g>
+     </svg>
+    </div>
+    <div class="legend"><span><i class="lit"></i>빛 · 생성</span><span><i class="residual"></i>숫자 · 남은 턴</span><span><i class="locked"></i>고정 · 시간 정지</span><span><i class="ghost"></i>점선 · 다음 위치</span></div>
+    <div id="bridge-status" class="bridge-status" aria-label="다리별 현재 상태"></div>
+   </section>
+   <aside>
+    <div class="section-label"><span>01</span><h2>이번 턴의 조작</h2><small>한 번에 하나</small></div>
+    <div class="light-actions" role="group" aria-label="비출 다리 선택">
+     <button type="button" data-action="A" aria-pressed="true"><b>A</b><span>다리 비추기</span><small>즉시 생성</small></button>
+     <button type="button" data-action="B" aria-pressed="false"><b>B</b><span>다리 비추기</span><small>즉시 생성</small></button>
+     <button type="button" data-action="C" aria-pressed="false"><b>C</b><span>다리 비추기</span><small>3턴 충전</small></button>
+    </div>
+    <button type="button" data-action="shade" class="wide-action" aria-pressed="false"><span class="action-symbol">◐</span><span><b id="shade-label">센서에 그림자 만들기</b><small id="shade-help">B 다리의 남은 시간 고정</small></span><kbd>S</kbd></button>
+    <button type="button" data-action="wait" class="wide-action wait-action" aria-pressed="false"><span class="action-symbol">→</span><span><b>현재 조작 유지</b><small>빛과 차폐판을 그대로 둡니다</small></span><kbd>W</kbd></button>
+    <div class="forecast-area"><div class="section-label"><span>02</span><h2>세 턴 앞을 읽기</h2></div><p class="forecast-note">선택한 조작 후, 그대로 유지하면</p><ol id="forecast" aria-live="polite"></ol></div>
+    <button id="advance" class="advance" type="button"><span>한 턴 진행</span><kbd>SPACE</kbd><span aria-hidden="true">↗</span></button>
+    <div class="secondary"><button id="undo" type="button" disabled>↶ 한 턴 되돌리기</button><button id="reset" type="button">처음부터</button></div>
+    <div id="result" role="status" hidden></div>
+    <div class="hint"><button type="button" id="hint-button">한 수 힌트 보기 <span>+</span></button><p id="hint" hidden></p></div>
+   </aside>
+  </div>
+  <section class="how-to" aria-label="핵심 규칙"><article><span>01 / 잔광</span><h3>다음 길을 밝히면</h3><p>이전 다리는 두 턴 뒤 사라집니다.<br>그 전에 건너거나 안전한 섬에 도착하세요.</p></article><article><span>02 / 그림자</span><h3>시간을 붙잡으세요</h3><p>센서를 가리면 B 다리의 잔광이 멈춥니다.<br>이미 있는 다리만 고정할 수 있습니다.</p></article><article><span>03 / 준비</span><h3>마지막 길은 천천히</h3><p>C 다리는 연속 세 턴 비춰야 생깁니다.<br>빛을 돌리면 충전 횟수는 초기화됩니다.</p></article></section>
+  <footer><details><summary>정확한 턴 순서와 단축키</summary><p>조작 선택만으로는 시간이 흐르지 않습니다. ‘한 턴 진행’을 누르면 <b>장치 조작 → 다리 충전 → 캐릭터 한 칸 이동 → 잔광 1 감소 → 추락 판정</b> 순서로 처리합니다. 남은 시간이 1인 다리에서도 이번 턴에 벗어날 수 있습니다.</p><p>다음 칸에 길이 없으면 캐릭터는 기다립니다. 기다리는 동안 발밑 다리가 사라지면 실패합니다. 출발점·가운데 섬·도착점은 항상 안전합니다. 잔광이나 그림자로 고정된 다리도 걸을 수 있습니다.</p><p>차폐판은 조명 본체의 고정된 감지광을 가립니다. 센서가 어두워지면 B 다리의 생성을 포함한 시간 변화가 멈춥니다. 주 조명의 방향은 차폐판과 별도로 유지됩니다. C 다리는 빛이 끊길 때마다 충전이 0으로 돌아가며, 남아 있는 잔광은 계속 사용할 수 있습니다.</p><p><b>1 / 2 / 3</b> 다리 선택 · <b>S</b> 차폐판 선택 · <b>W</b> 유지 선택 · <b>Space</b> 진행 · <b>Z</b> 되돌리기. 점선과 세 턴 예측은 현재 선택한 조작의 결과입니다.</p></details><span>원 · 사각형 · 빛 · 시간</span></footer>
+ </main>
+ <script type="module" src="app.mjs"></script>
+</body></html>

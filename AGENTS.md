@@ -11,3 +11,4 @@
 - 애니메이션 선택·삭제의 최신 기준은 `Docs/IncheonAnimationReview.ko.md`이며 이전 파일명 추정 후보보다 우선한다. 다운로드 에셋과 저장된 실습 씬의 최신 확인은 `Docs/IncheonDownloadedAssets.ko.md`를 참고한다. 사용자 완료 보고와 디스크 상태·실행 검증을 구분한다.
 - 사용자의 맵·배치 우선 요청에 따른 현재 실습 순서는 `Docs/IncheonMapLayoutStepByStep.ko.md`를 참고한다. 공간과 사건 배치를 먼저 잡고 임시 화면으로 검토한 다음 움직임·카메라 연출·배경 마무리로 진행한다.
 - 현재 배경과 오프닝 연결 검증은 `Docs/IncheonBackgroundBuild.ko.md`를 참고한다. 사용자가 만든 카메라·타임라인·새 파일·스카이박스·조명·안개·Volume 연출은 후속 작업에서도 보존한다. 초기 배경 생성 설정으로 되돌리지 않는다.
+- Sequence01 배 위 배우의 최신 수정과 검증은 `Docs/IncheonShipPassengers.ko.md`를 참고한다. 배 위 7명은 Root Motion·Movement·Character Controller를 꺼서 부모 배의 이동을 따른다. 좌우 동료의 일어서기는 Sequence01의 Companion 트랙 두 개에 연결돼 있다. 사용자는 화면을 직접 조종하는 작업을 최소화하고 파일·코드·백그라운드 검사를 우선하기를 원한다.
